@@ -3,6 +3,46 @@
 
 # app-generatetractsurfaces
 
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **Converts binary tract masks (NIfTI) into smoothed 3D surface meshes with VTK marching cubes, writing one .vtk, .ply or .stl surface per tract.**
+
+Each *.nii.gz mask in the input directory is turned into a triangular mesh with vtkDiscreteMarchingCubes and smoothed with a windowed-sinc filter for the chosen number of iterations; a color.json in the input is copied through. Use it to visualise tracts in 3D or as input to surface shape analysis; choose vtk output for other brainlife Apps. The job fails if the number of surfaces does not match the number of masks.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/tractmasks` |
+| 📤 **Outputs** | `neuro/3Dsurfaces` |
+| 🐳 **Container** | `brainlife/pythonvtk:1.1` |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.108](https://doi.org/10.25663/brainlife.app.108) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `masks` | `neuro/tractmasks` | yes | binary masks are converted to 3D triangular surfaces |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `surfaces` | `neuro/3Dsurfaces` | 3D surface for each binary volume input |
+
+<details>
+<summary><b>⚙️ Parameters</b> (2)</summary>
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `filetype` | enum | `vtk` | output filetype Options: `stl`, `ply`, `vtk`. |
+| `smooth_iter` | number | `5` | Choose the number of times you would like each tract to be smoothed. Smoothing makes the surfaces less blocky. |
+
+</details>
+
+📚 **References used by this App:**
+- Kitchell L. Shape Analysis of Human White Matter Tracts: An Examination of Normal Morphological Variability and the Association Between Morphology, Brain Size, and Behavior. Indiana University (2020).
+
+<!-- brainlife-app:end -->
+
 This service converts binary voxel images (.nii.gz format) into 3D surface meshes. The output files can be in either .stl, .ply., or .vtk file format. Choose .vtk if you plan to use the output with other brainlife.io apps.  
 
 ### Author
